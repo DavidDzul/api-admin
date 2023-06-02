@@ -11,7 +11,7 @@ class Asset extends Model
 
     protected $guarded = [];
 
-    public function image(){
+    public function images(){
         return $this->hasMany(Image::class, 'id_asset', 'id');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AssetController;
+use App\Http\Controllers\API\ImageController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\InventoryController;
 use App\Http\Controllers\AutenticarController;
@@ -32,6 +33,11 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('updateAsset', [AssetController::class, 'update']);
     Route::get('getAsset/{id}', [AssetController::class, 'show']); 
     Route::delete('deleteAsset/{id}', [AssetController::class, 'destroy']); 
+    
+    //IMAGE CONTROLLER
+    Route::post('createImage', [ImageController::class, 'uploadImage']);
+    Route::delete('deleteImage/{id}', [ImageController::class, 'deleteImage']);
+
     // LOGIN CONTROLLER
     Route::post('logout', [AutenticarController::class, 'cerrarSesion']);
 });

@@ -14,8 +14,8 @@ class AssetController extends Controller
 {
     public function index(){
 
-        // $assets = Asset::with('image')->get();
-        $assets = Asset::all();
+        $assets = Asset::with('images')->get();
+        // $assets = Asset::all();
         return response()->json($assets);
 
     }
@@ -52,7 +52,7 @@ class AssetController extends Controller
 
     public function show($id)
     {   
-        $asset = Asset::find($id);
+        $asset = Asset::with('images')->get()->find($id);
         return response()->json([
             'res' => true,
             'asset' => $asset,
@@ -103,4 +103,6 @@ class AssetController extends Controller
         }
         
     }
+
+    
 }
