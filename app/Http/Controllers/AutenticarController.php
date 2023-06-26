@@ -11,41 +11,43 @@ use Illuminate\Http\Request;
 
 class AutenticarController extends Controller
 {
-    public function registro(RegistroRequest $request){
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
+    // public function registro(RegistroRequest $request){
+    //     $user = new User();
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = bcrypt($request->password);
+    //     $user->save();
 
-        return response()->json([
-            "res" => true,
-            "msg" => "Usuario registrado correctamente"
-        ],200);
-    }
+    //     return response()->json([
+    //         "res" => true,
+    //         "msg" => "Usuario registrado correctamente"
+    //     ],200);
+    // }
 
-    public function acceso(AccesoRequest $request){
-          $user = User::where('email', $request->email)->first();
- 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+    public function acceso(AccesoRequest $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'msg' => 'Las credenciales son incorrectas.',
             ]);
         }
-    
+
         $token = $user->createToken($request->email)->plainTextToken;
         return response()->json([
             "res" => true,
             "token" => $token,
             'usuario' => $user
-        ],200);
+        ], 200);
     }
 
-    public function cerrarSesion(Request $request){
+    public function cerrarSesion(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
             "res" => true,
             "msg" => "Token eliminado con éxito"
-        ],200);
+        ], 200);
     }
 }

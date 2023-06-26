@@ -29,9 +29,11 @@ class CreateAssetsTable extends Migration
             $table->string('location');
             $table->enum("use", ["FORMATION", "OPERATIONAL", "OTHER"]);
             $table->string('otherUse')->nullable();
-            $table->enum("campus", ["MERIDA", "VALLADOLID", "OXKUTZCAB", "TIZIMIN"]);
-            $table->string('personCharge');
-            $table->string('personPosition');
+            $table->foreignId('id_user')->nullable()->constrained('users')->onDelete('set null');
+            $table->text('observation')->nullable();
+            // $table->enum("campus", ["MERIDA", "VALLADOLID", "OXKUTZCAB", "TIZIMIN"]);
+            // $table->string('personCharge');
+            // $table->string('personPosition');
             $table->timestamps();
         });
     }

@@ -5,8 +5,8 @@ use Carbon\Carbon;
 class Helper
 {
 
-    public static function IDGenerator($model, $trow, $length, $prefix, $campus){
-        $data = $model::where('campus', $campus)->whereYear('created_at', date('Y'))->orderBy('id','desc')->first();
+    public static function IDGenerator($model, $trow, $length, $prefix){
+        $data = $model::whereYear('created_at', date('Y'))->orderBy('id','desc')->first();
         if(!$data){
             $og_length = $length - 1;
             $last_number = 1;

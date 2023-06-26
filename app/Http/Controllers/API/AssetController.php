@@ -12,18 +12,18 @@ use App\Http\Requests\UpdateAssetRequest;
 
 class AssetController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $assets = Asset::with('images')->get();
+        $assets = Asset::with('user')->get();
         // $assets = Asset::all();
         return response()->json($assets);
-
     }
 
-    public function store(SaveAssetRequest $request){   
-        $sede = $request->campus;
+    public function store(SaveAssetRequest $request)
+    {
         $year = number_format(date('y'));
-        $code = Helper::IDGenerator(new Asset, 'controlNumber', 3, 'A'.substr($request->campus, 0, 1).$year, $sede);
+        $code = Helper::IDGenerator(new Asset, 'controlNumber', 3, 'ACT-' . $year,);
         $asset = new Asset;
         $asset->controlNumber = $code;
         $asset->acquisitionDate = $request->acquisitionDate;
@@ -38,9 +38,11 @@ class AssetController extends Controller
         $asset->state = $request->state;
         $asset->location = $request->location;
         $asset->otherUse = $request->otherUse;
-        $asset->campus = $request->campus;
-        $asset->personCharge = $request->personCharge;
-        $asset->personPosition = $request->personPosition;
+        $asset->id_user = $request->userId;
+        $asset->observation = $request->observation;
+        // $asset->campus = $request->campus;
+        // $asset->personCharge = $request->personCharge;
+        // $asset->personPosition = $request->personPosition;
         $asset->save();
         // Asset::create($request->all());
         return response()->json([
@@ -51,8 +53,8 @@ class AssetController extends Controller
 
 
     public function show($id)
-    {   
-        $asset = Asset::with('images')->get()->find($id);
+    {
+        $asset = Asset::with('images')->with('user')->with('files')->get()->find($id);
         return response()->json([
             'res' => true,
             'asset' => $asset,
@@ -75,9 +77,11 @@ class AssetController extends Controller
         $asset->state = $request->state;
         $asset->location = $request->location;
         $asset->otherUse = $request->otherUse;
-        $asset->campus = $request->campus;
-        $asset->personCharge = $request->personCharge;
-        $asset->personPosition = $request->personPosition;
+        $asset->id_user = $request->userId;
+        $asset->observation = $request->observation;
+        // $asset->campus = $request->campus;
+        // $asset->personCharge = $request->personCharge;
+        // $asset->personPosition = $request->personPosition;
         $asset->save();
         return response()->json([
             'res' => true,
@@ -89,20 +93,17 @@ class AssetController extends Controller
     public function destroy($id)
     {
         $asset = Asset::find($id);
-        if($asset){
+        if ($asset) {
             $asset->delete();
             return response()->json([
                 'res' => true,
                 "msg" => "Eliminado con  éxito",
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'res' => true,
                 "msg" => "Error al eliminar",
             ], 200);
         }
-        
     }
-
-    
 }

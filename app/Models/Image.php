@@ -9,7 +9,8 @@ class Image extends Model
 {
     use HasFactory;
 
-    public function asset(){
+    public function asset()
+    {
         return $this->belongsTo(Asset::class, 'id');
     }
 }

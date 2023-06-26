@@ -36,9 +36,9 @@ class UpdateAssetRequest extends FormRequest
             "state" => "required",
             "location" => "required",
             "use" => "required",
-            "campus" => "required",
-            "personCharge" => "required",
-            "personPosition" => "required",
+            // "campus" => "required",
+            // "personCharge" => "required",
+            // "personPosition" => "required",
         ];
     }
 }

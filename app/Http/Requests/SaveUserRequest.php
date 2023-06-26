@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateInventoryRequest extends FormRequest
+class SaveUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,13 @@ class UpdateInventoryRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required",
-            "description" => "required",
-            "peopleCharge" => "required",
+            "firstName" => "required",
+            "lastName" => "required",
+            'email' => 'required|email|unique:users',
+            "password" => "required",
+            "phone" => "required",
+            "workPosition" => "required",
+            "campus" => "required",
         ];
     }
 }

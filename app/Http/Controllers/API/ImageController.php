@@ -32,20 +32,12 @@ class ImageController extends Controller
 
         $image->id_asset = $request->id_asset;
         $image->url = $name;
-        $result= $image->save();
-        
-        if($result){
-            return response()->json([
-                'res' => true,
-                "msg" => "Agregado con éxito",
-                "image" => $image
-            ], 200);
-        }else{
-            return response()->json([
-                'res' => true,
-                "msg" => "Error al agregar",
-            ], 200);
-        }
+        $image->save();
+        return response()->json([
+            'res' => true,
+            "msg" => "Agregado con éxito",
+            "image" => $image
+        ], 200);
     }
 
     public function deleteImage($id)
@@ -56,18 +48,11 @@ class ImageController extends Controller
         if(File::exists($destination)){
             File::delete($destination);
         }
-        $result = $image->delete();
-        if($result){
-            return response()->json([
-                'res' => true,
-                "msg" => "Eliminado con éxito",
-                "image" => $image
-            ], 200);
-        }else{
-            return response()->json([
-                'res' => true,
-                "msg" => "Error al eliminar",
-            ], 200);
-        }
+         $image->delete();
+        return response()->json([
+            'res' => true,
+            "msg" => "Eliminado con éxito",
+            "image" => $image
+        ], 200);
     }
 }

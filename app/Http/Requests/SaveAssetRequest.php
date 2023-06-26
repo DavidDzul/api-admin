@@ -24,7 +24,7 @@ class SaveAssetRequest extends FormRequest
     public function rules()
     {
         return [
-            "controlNumber" => "required"|"unique:assets,controlNumber",
+            "controlNumber" => "required" | "unique:assets,controlNumber",
             "acquisitionDate" => "required",
             "providerName" => "required",
             "invoiceNumber" => "required",
@@ -37,9 +37,9 @@ class SaveAssetRequest extends FormRequest
             "state" => "required",
             "location" => "required",
             "use" => "required",
-            "campus" => "required",
-            "personCharge" => "required",
-            "personPosition" => "required",
+            // "campus" => "required",
+            // "personCharge" => "required",
+            // "personPosition" => "required",
         ];
     }
 }
