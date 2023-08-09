@@ -14,15 +14,18 @@ class FileController extends Controller
         $file = new File();
         $request->validate([
             'id_asset' => 'required',
-            'url' => 'required|mimes:pdf,docx|max:2048'
+            'url' => 'required|mimes:pdf,docx,xlsx|max:2048'
         ]);
+        $url = null;
         $name = null;
         if ($request->hasFile('url')) {
-            $name = $request->file('url')->store('files', 'public');
+            $url = $request->file('url')->store('files', 'public');
+            $name = $request->file('url')->getClientOriginalName();
         }
 
         $file->id_asset = $request->id_asset;
-        $file->url = $name;
+        $file->url = $url;
+        $file->name = $name;
         $file->save();
         return response()->json([
             'res' => true,
