@@ -17,7 +17,11 @@ class AssetController extends Controller
 
         $assets = Asset::with('user')->get();
         // $assets = Asset::all();
-        return response()->json($assets);
+        // return response()->json($assets);
+        return response()->json([
+            'res' => true,
+            'assets' => $assets,
+        ], 200);
     }
 
     public function store(SaveAssetRequest $request)

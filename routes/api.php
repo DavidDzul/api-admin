@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\AssetController;
+use App\Http\Controllers\API\AssetController;
 use App\Http\Controllers\API\FileController;
 use App\Http\Controllers\API\ImageController;
 use Illuminate\Http\Request;
